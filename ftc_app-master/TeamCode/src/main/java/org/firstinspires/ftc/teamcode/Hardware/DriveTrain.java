@@ -56,8 +56,6 @@ public class DriveTrain extends BaseHardware{
         double leftPower;
         double rightPower;
 
-        //beep
-
         double drive = -gamepad.left_stick_y;
         double turn  =  gamepad.right_stick_x;
         leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
