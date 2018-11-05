@@ -97,7 +97,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 @Autonomous(name="FacingCrater V2", group="Pushbot")
 //@Disabled
-public class FacingCraterV2 extends LinearOpMode {
+public class FacingCrater extends LinearOpMode {
 
     /* Declare OpMode members. */
     private ElapsedTime      runtime  = new ElapsedTime();

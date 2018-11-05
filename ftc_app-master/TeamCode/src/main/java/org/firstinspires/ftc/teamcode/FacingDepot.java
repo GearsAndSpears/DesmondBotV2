@@ -95,7 +95,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 @Autonomous(name="FacingDepot V2", group="Pushbot")
 //@Disabled
-public class FacingDepotV2 extends LinearOpMode {
+public class FacingDepot extends LinearOpMode {
 
     /* Declare OpMode members. */
     private ElapsedTime      runtime  = new ElapsedTime();
