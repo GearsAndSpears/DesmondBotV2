@@ -76,6 +76,7 @@ public class DesmondDrive extends LinearOpMode {
             rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
 
+            // Send calculated power to
             if(!gamepad1.right_bumper) {
                 robot.leftDrive.setPower(leftPower);
                 robot.rightDrive.setPower(rightPower);
