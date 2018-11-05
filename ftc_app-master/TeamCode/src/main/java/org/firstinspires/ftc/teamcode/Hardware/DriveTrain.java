@@ -78,4 +78,9 @@ public class DriveTrain extends BaseHardware{
         rightDrive.setPower(right);
     }
 
+    public void setMotorModes(DcMotor.RunMode runmode){
+        leftDrive.setMode(runmode);
+        rightDrive.setMode(runmode);
+    }
+
 }
