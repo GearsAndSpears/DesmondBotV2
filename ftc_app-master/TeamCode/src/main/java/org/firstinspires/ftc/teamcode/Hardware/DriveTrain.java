@@ -73,6 +73,9 @@ public class DriveTrain extends BaseHardware{
 
     }
 
-
+    public void setPower(double left, double right){
+        leftDrive.setPower(left);
+        rightDrive.setPower(right);
+    }
 
 }
