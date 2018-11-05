@@ -30,7 +30,7 @@ public class Accumulator extends BaseHardware{
     public DcMotorEx accDrive;
     public CRServo frontAcc, backAcc;
 
-    enum accDrivePosition{
+    public enum accDrivePosition{
         RETRACTED,
         DEPLOYED,
         COLLECTING

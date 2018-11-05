@@ -8,6 +8,7 @@ public class Robot {
 
     public DriveTrain driveTrain = new DriveTrain();
     public Gyro gyro = new Gyro();
+    public Accumulator acc = new Accumulator();
 
     public Robot(){
 
@@ -20,6 +21,7 @@ public class Robot {
     private void initialize(HardwareMap hardwareMap, Telemetry telemetry){
         driveTrain.init(hardwareMap, telemetry);
         gyro.init(hardwareMap, telemetry);
+        acc.init(hardwareMap, telemetry);
     }
 
 }
