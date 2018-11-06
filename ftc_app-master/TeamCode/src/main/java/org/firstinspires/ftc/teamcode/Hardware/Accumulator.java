@@ -17,7 +17,7 @@ public class Accumulator extends BaseHardware{
     private double frontAccOutput = -1;
     private double backAccOutput = -1;
 
-    private final int deployedPosition = 0;
+    private final int deployedPosition = 400;
     private final int retractedPosition = 0;
     private final int collectingPosition = 0;
 
@@ -52,7 +52,7 @@ public class Accumulator extends BaseHardware{
 
         accDrive.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        accDrive.setDirection(DcMotorEx.Direction.FORWARD);
+        accDrive.setDirection(DcMotorEx.Direction.REVERSE);
 
         accDrive.setPower(0);
 
