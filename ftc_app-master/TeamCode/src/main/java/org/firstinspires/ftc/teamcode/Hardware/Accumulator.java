@@ -56,7 +56,7 @@ public class Accumulator extends BaseHardware{
 
         accDrive.setPower(0);
 
-        frontAcc.setDirection(CRServo.Direction.FORWARD);
+        frontAcc.setDirection(CRServo.Direction.REVERSE);
         backAcc.setDirection(CRServo.Direction.FORWARD);
     }
 
