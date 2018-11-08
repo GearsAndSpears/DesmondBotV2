@@ -10,6 +10,7 @@ public class Robot {
     public Gyro gyro = new Gyro();
     public Accumulator acc = new Accumulator();
     public Lift lift = new Lift();
+    public Vision vision = new Vision();
 
     public Robot(){
 
@@ -24,7 +25,7 @@ public class Robot {
         gyro.init(hardwareMap, telemetry);
         acc.init(hardwareMap, telemetry);
         lift.init(hardwareMap, telemetry);
-
+        vision.init(hardwareMap, telemetry);
     }
 
     public void setup(){

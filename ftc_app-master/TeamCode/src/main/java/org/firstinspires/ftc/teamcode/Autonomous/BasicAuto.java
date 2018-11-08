@@ -7,12 +7,21 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Hardware.DriveTrain;
 import org.firstinspires.ftc.teamcode.Hardware.Gyro;
+import org.firstinspires.ftc.teamcode.Hardware.Vision;
+
+import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.CENTER_SAMPLE_DISTANCE;
+import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.DRIVE_SPEED;
+import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.SAMPLE_ANGLE;
+import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.SIDE_SAMPLE_DISTANCE;
+import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.TURN_SPEED;
 
 public abstract class BasicAuto extends LinearOpMode{
 
     DriveTrain driveTrain;
 
     Gyro gyro;
+
+    Vision vision;
 
     /**
      *  Method to drive on a fixed compass bearing (angle), based on encoder counts.
@@ -221,6 +230,41 @@ public abstract class BasicAuto extends LinearOpMode{
     private double getSteer(double error, double PCoeff) {
         return Range.clip(error * PCoeff, -1, 1);
     }
+
+    private void sample(){
+
+        gyroTurn(TURN_SPEED, SAMPLE_ANGLE);
+
+        sleep(500);
+
+        if(vision.detector.getAligned()){
+            gyroDrive(DRIVE_SPEED, SIDE_SAMPLE_DISTANCE,SAMPLE_ANGLE);
+            gyroDrive(DRIVE_SPEED, -SIDE_SAMPLE_DISTANCE, SAMPLE_ANGLE);
+            return;
+        }
+
+        gyroTurn(TURN_SPEED, -SAMPLE_ANGLE);
+
+        sleep(500);
+
+        if(vision.detector.getAligned()){
+            gyroDrive(DRIVE_SPEED, SIDE_SAMPLE_DISTANCE,-SAMPLE_ANGLE);
+            gyroDrive(DRIVE_SPEED, -SIDE_SAMPLE_DISTANCE, -SAMPLE_ANGLE);
+            return;
+        }
+
+        gyroTurn(TURN_SPEED, 0);
+
+        sleep(500);
+
+        if(vision.detector.getAligned()){
+            gyroDrive(DRIVE_SPEED, CENTER_SAMPLE_DISTANCE,0);
+            gyroDrive(DRIVE_SPEED, -CENTER_SAMPLE_DISTANCE, 0);
+            return;
+        }
+
+    }
+
 
 
 }

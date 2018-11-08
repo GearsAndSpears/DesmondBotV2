@@ -18,12 +18,17 @@ public class DriveTrain extends BaseHardware{
 
     // These constants define the desired driving/control characteristics
     // The can/should be tweaked to suite the specific robot drive train.
-    private static final double     DRIVE_SPEED             = 0.5;     // Nominal speed for better accuracy.
-    private static final double     TURN_SPEED              = 0.5;     // Nominal half speed for better accuracy.
+    public static final double     DRIVE_SPEED             = 0.5;     // Nominal speed for better accuracy.
+    public static final double     TURN_SPEED              = 0.5;     // Nominal half speed for better accuracy.
 
     public static final double     HEADING_THRESHOLD       = 1 ;      // As tight as we can make it with an integer gyro
     public static final double     P_TURN_COEFF            = 0.05;     // Larger is more responsive, but also less stable
     public static final double     P_DRIVE_COEFF           = 0.05;     // Larger is more responsive, but also less stable
+
+    public static final double     CENTER_SAMPLE_DISTANCE  = 20;
+    public static final double     SIDE_SAMPLE_DISTANCE    = 22;
+    public static final double     SAMPLE_ANGLE            = 25;
+
 
     Telemetry telemetry;
 

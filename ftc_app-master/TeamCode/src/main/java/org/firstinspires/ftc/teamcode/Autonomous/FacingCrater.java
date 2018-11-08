@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 import static org.firstinspires.ftc.teamcode.Hardware.Accumulator.accDrivePosition;
 
-@Autonomous(name="FacingCrater V2", group="Pushbot")
+@Autonomous(name="FacingCrater V3", group="Pushbot")
 
 public class FacingCrater extends  BasicAuto{
 
@@ -19,6 +19,8 @@ public class FacingCrater extends  BasicAuto{
         robot.init(hardwareMap, telemetry);
 
         robot.acc.setArmState(accDrivePosition.RETRACTED);
+
+        robot
 
     }
 }
