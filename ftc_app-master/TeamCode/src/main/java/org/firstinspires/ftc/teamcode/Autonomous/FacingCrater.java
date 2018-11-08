@@ -26,6 +26,9 @@ public class FacingCrater extends  BasicAuto{
 
         robot.vision.detector.enable();
 
+        telemetry.addData("Robot Ready", "");
+        telemetry.update();
+
         waitForStart();
 
         robot.lift.liftDrive.setMode(RUN_USING_ENCODER);
@@ -33,7 +36,7 @@ public class FacingCrater extends  BasicAuto{
 
         sleep(500);
 
-        robot.lift.hangLatch.setPosition(1.0);
+        robot.lift.liftLatch.setPosition(1.0);
 
         sleep(500);
 

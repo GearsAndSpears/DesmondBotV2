@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Hardware.DriveTrain;
 import org.firstinspires.ftc.teamcode.Hardware.Gyro;
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Hardware.Vision;
 
 import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.CENTER_SAMPLE_DISTANCE;
@@ -17,11 +18,7 @@ import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.TURN_SPEED;
 
 public abstract class BasicAuto extends LinearOpMode{
 
-    DriveTrain driveTrain;
-
-    Gyro gyro;
-
-    Vision vision;
+    Robot robot;
 
     /**
      *  Method to drive on a fixed compass bearing (angle), based on encoder counts.
@@ -52,29 +49,29 @@ public abstract class BasicAuto extends LinearOpMode{
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            moveCounts = (int)(distance * driveTrain.COUNTS_PER_INCH);
-            newLeftTarget = driveTrain.leftDrive.getCurrentPosition() + moveCounts;
-            newRightTarget = driveTrain.rightDrive.getCurrentPosition() + moveCounts;
+            moveCounts = (int)(distance * robot.driveTrain.COUNTS_PER_INCH);
+            newLeftTarget = robot.driveTrain.leftDrive.getCurrentPosition() + moveCounts;
+            newRightTarget = robot.driveTrain.rightDrive.getCurrentPosition() + moveCounts;
 
             // Set Target and Turn On RUN_TO_POSITION
-            driveTrain.leftDrive.setTargetPosition(newLeftTarget);
-            driveTrain.rightDrive.setTargetPosition(newRightTarget);
+            robot.driveTrain.leftDrive.setTargetPosition(newLeftTarget);
+            robot.driveTrain.rightDrive.setTargetPosition(newRightTarget);
 
-            driveTrain.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            driveTrain.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.driveTrain.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.driveTrain.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // start motion.
             speed = Range.clip(Math.abs(speed), 0.0, 1.0);
-            driveTrain.leftDrive.setPower(speed);
-            driveTrain.rightDrive.setPower(speed);
+            robot.driveTrain.leftDrive.setPower(speed);
+            robot.driveTrain.rightDrive.setPower(speed);
 
             // keep looping while we are still active, and BOTH motors are running.
             while (opModeIsActive() &&
-                    (driveTrain.leftDrive.isBusy() && driveTrain.rightDrive.isBusy())) {
+                    (robot.driveTrain.leftDrive.isBusy() && robot.driveTrain.rightDrive.isBusy())) {
 
                 // adjust relative speed based on heading error.
                 error = getError(angle);
-                steer = getSteer(error, driveTrain.P_DRIVE_COEFF);
+                steer = getSteer(error, robot.driveTrain.P_DRIVE_COEFF);
 
                 // if driving in reverse, the motor correction also needs to be reversed
                 if (distance < 0)
@@ -91,25 +88,25 @@ public abstract class BasicAuto extends LinearOpMode{
                     rightSpeed /= max;
                 }
 
-                driveTrain.leftDrive.setPower(leftSpeed);
-                driveTrain.rightDrive.setPower(rightSpeed);
+                robot.driveTrain.leftDrive.setPower(leftSpeed);
+                robot.driveTrain.rightDrive.setPower(rightSpeed);
 
                 // Display drive status for the driver.
                 telemetry.addData("Err/St",  "%5.1f/%5.1f",  error, steer);
                 telemetry.addData("Target",  "%7d:%7d",      newLeftTarget,  newRightTarget);
-                telemetry.addData("Actual",  "%7d:%7d",      driveTrain.leftDrive.getCurrentPosition(),
-                        driveTrain.rightDrive.getCurrentPosition());
+                telemetry.addData("Actual",  "%7d:%7d",      robot.driveTrain.leftDrive.getCurrentPosition(),
+                        robot.driveTrain.rightDrive.getCurrentPosition());
                 telemetry.addData("Speed",   "%5.2f:%5.2f",  leftSpeed, rightSpeed);
                 telemetry.update();
             }
 
             // Stop all motion;
-            driveTrain.leftDrive.setPower(0);
-            driveTrain.rightDrive.setPower(0);
+            robot.driveTrain.leftDrive.setPower(0);
+            robot.driveTrain.rightDrive.setPower(0);
 
             // Turn off RUN_TO_POSITION
-            driveTrain.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            driveTrain.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.driveTrain.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.driveTrain.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 
@@ -127,7 +124,7 @@ public abstract class BasicAuto extends LinearOpMode{
     void gyroTurn(double speed, double angle) {
 
         // keep looping while we are still active, and not on heading.
-        while (opModeIsActive() && !onHeading(speed, angle, driveTrain.P_TURN_COEFF)) {
+        while (opModeIsActive() && !onHeading(speed, angle, robot.driveTrain.P_TURN_COEFF)) {
             // Update telemetry & Allow time for other processes to run.
             telemetry.update();
         }
@@ -151,13 +148,13 @@ public abstract class BasicAuto extends LinearOpMode{
         holdTimer.reset();
         while (opModeIsActive() && (holdTimer.time() < holdTime)) {
             // Update telemetry & Allow time for other processes to run.
-            onHeading(speed, angle, driveTrain.P_TURN_COEFF);
+            onHeading(speed, angle, robot.driveTrain.P_TURN_COEFF);
             telemetry.update();
         }
 
         // Stop all motion;
-        driveTrain.leftDrive.setPower(0);
-        driveTrain.rightDrive.setPower(0);
+        robot.driveTrain.leftDrive.setPower(0);
+        robot.driveTrain.rightDrive.setPower(0);
     }
 
     /**
@@ -180,7 +177,7 @@ public abstract class BasicAuto extends LinearOpMode{
         // determine turn power based on +/- error
         error = getError(angle);
 
-        if (Math.abs(error) <= driveTrain.HEADING_THRESHOLD) {
+        if (Math.abs(error) <= robot.driveTrain.HEADING_THRESHOLD) {
             steer = 0.0;
             leftSpeed  = 0.0;
             rightSpeed = 0.0;
@@ -193,8 +190,8 @@ public abstract class BasicAuto extends LinearOpMode{
         }
 
         // Send desired speeds to motors.
-        driveTrain.leftDrive.setPower(leftSpeed);
-        driveTrain.rightDrive.setPower(rightSpeed);
+        robot.driveTrain.leftDrive.setPower(leftSpeed);
+        robot.driveTrain.rightDrive.setPower(rightSpeed);
 
         // Display it for the driver.
         telemetry.addData("Target", "%5.2f", angle);
@@ -215,7 +212,7 @@ public abstract class BasicAuto extends LinearOpMode{
         double robotError;
 
         // calculate error in -179 to +180 range  (
-        robotError = targetAngle - gyro.imu.getAngularOrientation().firstAngle;
+        robotError = targetAngle - robot.gyro.imu.getAngularOrientation().firstAngle;
         while (robotError > 180)  robotError -= 360;
         while (robotError <= -180) robotError += 360;
         return robotError;
@@ -237,7 +234,7 @@ public abstract class BasicAuto extends LinearOpMode{
 
         sleep(500);
 
-        if(vision.detector.getAligned()){
+        if(robot.vision.detector.getAligned()){
             gyroDrive(DRIVE_SPEED, SIDE_SAMPLE_DISTANCE,SAMPLE_ANGLE);
             gyroDrive(DRIVE_SPEED, -SIDE_SAMPLE_DISTANCE, SAMPLE_ANGLE);
             return;
@@ -247,7 +244,7 @@ public abstract class BasicAuto extends LinearOpMode{
 
         sleep(500);
 
-        if(vision.detector.getAligned()){
+        if(robot.vision.detector.getAligned()){
             gyroDrive(DRIVE_SPEED, SIDE_SAMPLE_DISTANCE,-SAMPLE_ANGLE);
             gyroDrive(DRIVE_SPEED, -SIDE_SAMPLE_DISTANCE, -SAMPLE_ANGLE);
             return;
@@ -257,7 +254,7 @@ public abstract class BasicAuto extends LinearOpMode{
 
         sleep(500);
 
-        if(vision.detector.getAligned()){
+        if(robot.vision.detector.getAligned()){
             gyroDrive(DRIVE_SPEED, CENTER_SAMPLE_DISTANCE,0);
             gyroDrive(DRIVE_SPEED, -CENTER_SAMPLE_DISTANCE, 0);
             return;
