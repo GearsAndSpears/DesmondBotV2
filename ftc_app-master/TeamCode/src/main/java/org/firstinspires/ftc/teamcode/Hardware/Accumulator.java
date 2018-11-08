@@ -19,7 +19,10 @@ public class Accumulator extends BaseHardware{
 
     private final int deployedPosition = 400;
     private final int retractedPosition = 0;
-    private final int collectingPosition = 0;
+    private final int collectingPosition = 450;
+
+    private boolean upPressed = false;
+    private boolean downPressed = false;
 
     Telemetry telemetry;
 
@@ -50,6 +53,8 @@ public class Accumulator extends BaseHardware{
 
         accDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
+        accDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         accDrive.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         accDrive.setDirection(DcMotorEx.Direction.REVERSE);
@@ -58,6 +63,9 @@ public class Accumulator extends BaseHardware{
 
         frontAcc.setDirection(CRServo.Direction.REVERSE);
         backAcc.setDirection(CRServo.Direction.FORWARD);
+
+        accDrive.setTargetPositionTolerance(1);
+
     }
 
     public void intake(){
@@ -94,6 +102,30 @@ public class Accumulator extends BaseHardware{
     }
 
     public void manualControl(Gamepad gamepad){
+
+        if(gamepad.dpad_up && !upPressed){
+            acc = accDrivePosition.RETRACTED;
+            upPressed = true;
+        }
+        else if(gamepad.dpad_down && !downPressed){
+            if(acc == accDrivePosition.RETRACTED){
+                acc = accDrivePosition.DEPLOYED;
+            }
+            else if(acc == accDrivePosition.DEPLOYED){
+                acc = accDrivePosition.COLLECTING;
+            }
+            downPressed = true;
+        }
+
+        if(!gamepad.dpad_up){
+            upPressed = false;
+        }
+
+        if(!gamepad.dpad_down){
+            downPressed = false;
+        }
+
+        this.setArmState(acc);
 
     }
 

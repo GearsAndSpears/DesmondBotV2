@@ -20,8 +20,8 @@ public class LiftTest extends OpMode {
 
     @Override
     public void loop() {
-
-    robot.lift.manualControl(gamepad1);
-
+    robot.lift.manualControl(gamepad2);
+    robot.driveTrain.manualDrive(gamepad1);
+    robot.acc.manualControl(gamepad2);
     }
 }
