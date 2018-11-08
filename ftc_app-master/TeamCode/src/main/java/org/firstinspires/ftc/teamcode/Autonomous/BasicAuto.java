@@ -35,9 +35,9 @@ public abstract class BasicAuto extends LinearOpMode{
      *                   0 = fwd. +ve is CCW from fwd. -ve is CW from forward.
      *                   If a relative angle is required, add/subtract from current heading.
      */
-    private void gyroDrive(double speed,
-                           double distance,
-                           double angle) {
+    void gyroDrive(double speed,
+                   double distance,
+                   double angle) {
 
         int     newLeftTarget;
         int     newRightTarget;
@@ -143,7 +143,7 @@ public abstract class BasicAuto extends LinearOpMode{
      *                   If a relative angle is required, add/subtract from current heading.
      * @param holdTime   Length of time (in seconds) to hold the specified heading.
      */
-    private void gyroHold(double speed, double angle, double holdTime) {
+    void gyroHold(double speed, double angle, double holdTime) {
 
         ElapsedTime holdTimer = new ElapsedTime();
 
@@ -231,7 +231,7 @@ public abstract class BasicAuto extends LinearOpMode{
         return Range.clip(error * PCoeff, -1, 1);
     }
 
-    private void sample(){
+    void sample(){
 
         gyroTurn(TURN_SPEED, SAMPLE_ANGLE);
 
