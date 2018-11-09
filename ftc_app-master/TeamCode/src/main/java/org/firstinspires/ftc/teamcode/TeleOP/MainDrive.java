@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Accumulator;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 @TeleOp(name="Drive", group="Drive")
-public class LiftTest extends OpMode {
+public class MainDrive extends OpMode {
 
     Robot robot = new Robot();
 
