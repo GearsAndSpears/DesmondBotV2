@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Lift extends BaseHardware {
 
-    private int liftExtended = 3300;
+    public int liftExtended = 3300;
 
     private double hangLatchClosed = 0.0;
     private double hangLatchOpened = 1.0;

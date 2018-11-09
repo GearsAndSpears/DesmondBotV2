@@ -277,12 +277,11 @@ public abstract class BaseAuto extends LinearOpMode{
 
         robot.lift.liftDrive.setMode(RUN_TO_POSITION);
 
-        robot.lift.liftDrive.setTargetPosition(3300);
+        robot.lift.liftDrive.setTargetPosition(robot.lift.liftExtended);
         robot.lift.liftDrive.setPower(0.5);
 
         while(robot.lift.liftDrive.isBusy() && opModeIsActive()) {
             robot.lift.liftDrive.setPower(0.5);
-            telemetry.addData("beep","boop");
         }
 
         robot.lift.hangLatch.setPosition(1.0);
