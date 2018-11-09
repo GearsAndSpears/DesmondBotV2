@@ -1,11 +1,14 @@
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
+import static android.os.SystemClock.sleep;
 import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_TO_POSITION;
 import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_USING_ENCODER;
 import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.CENTER_SAMPLE_DISTANCE;
@@ -14,21 +17,33 @@ import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.SAMPLE_ANGLE;
 import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.SIDE_SAMPLE_DISTANCE;
 import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.TURN_SPEED;
 
-public abstract class BaseAuto extends LinearOpMode{
+public class Auto extends BaseHardware{
 
-    Robot robot = new Robot();
+    HardwareMap hardwareMap;
+    Telemetry telemetry;
+    LinearOpMode opMode;
+    Robot robot;
+
+    public void init(HardwareMap hardwareMap, Telemetry telemetry, LinearOpMode opmode){
+        this.initialize(hardwareMap, telemetry, opmode);
+    }
+
+    private void initialize(HardwareMap ahardwareMap, Telemetry atelemetry, LinearOpMode aopMode){
+        hardwareMap = ahardwareMap;
+        telemetry = atelemetry;
+        opMode = aopMode;
+    }
 
     /**
      *  Method to drive on a fixed compass bearing (angle), based on encoder counts.
      *  Move will stop if either of these conditions occur:
      *  1) Move gets to the desired position
      *  2) Driver stops the opmode running.
-     *
-     * @param speed      Target speed for forward motion.  Should allow for _/- variance for adjusting heading
+     *  @param speed      Target speed for forward motion.  Should allow for _/- variance for adjusting heading
      * @param distance   Distance (in inches) to move from current position.  Negative distance means move backwards.
      * @param angle      Absolute Angle (in Degrees) relative to last gyro reset.
-     *                   0 = fwd. +ve is CCW from fwd. -ve is CW from forward.
-     *                   If a relative angle is required, add/subtract from current heading.
+ *                   0 = fwd. +ve is CCW from fwd. -ve is CW from forward.
+     *
      */
     void gyroDrive(double speed,
                    double distance,
@@ -44,7 +59,7 @@ public abstract class BaseAuto extends LinearOpMode{
         double  rightSpeed;
 
         // Ensure that the opmode is still active
-        if (opModeIsActive()) {
+        if (this.opMode.opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
             moveCounts = (int)(distance * robot.driveTrain.COUNTS_PER_INCH);
@@ -64,7 +79,7 @@ public abstract class BaseAuto extends LinearOpMode{
             robot.driveTrain.rightDrive.setPower(speed);
 
             // keep looping while we are still active, and BOTH motors are running.
-            while (opModeIsActive() &&
+            while (this.opMode.opModeIsActive() &&
                     (robot.driveTrain.leftDrive.isBusy() && robot.driveTrain.rightDrive.isBusy())) {
 
                 // adjust relative speed based on heading error.
@@ -122,7 +137,7 @@ public abstract class BaseAuto extends LinearOpMode{
     void gyroTurn(double speed, double angle) {
 
         // keep looping while we are still active, and not on heading.
-        while (opModeIsActive() && !onHeading(speed, angle, robot.driveTrain.P_TURN_COEFF)) {
+        while (this.opMode.opModeIsActive() && !onHeading(speed, angle, robot.driveTrain.P_TURN_COEFF)) {
             // Update telemetry & Allow time for other processes to run.
             telemetry.update();
         }
@@ -144,7 +159,7 @@ public abstract class BaseAuto extends LinearOpMode{
 
         // keep looping while we have time remaining.
         holdTimer.reset();
-        while (opModeIsActive() && (holdTimer.time() < holdTime)) {
+        while (this.opMode.opModeIsActive() && (holdTimer.time() < holdTime)) {
             // Update telemetry & Allow time for other processes to run.
             onHeading(speed, angle, robot.driveTrain.P_TURN_COEFF);
             telemetry.update();
@@ -276,7 +291,7 @@ public abstract class BaseAuto extends LinearOpMode{
         robot.lift.liftDrive.setTargetPosition(robot.lift.liftExtended);
         robot.lift.liftDrive.setPower(0.5);
 
-        while(robot.lift.liftDrive.isBusy() && opModeIsActive()) {
+        while(robot.lift.liftDrive.isBusy() && this.opMode.opModeIsActive()) {
             robot.lift.liftDrive.setPower(0.5);
         }
 
@@ -290,12 +305,13 @@ public abstract class BaseAuto extends LinearOpMode{
         robot.lift.liftDrive.setTargetPosition(0);
         robot.lift.liftDrive.setPower(0.5);
 
-        while(robot.lift.liftDrive.isBusy() && opModeIsActive()) {
+        while(robot.lift.liftDrive.isBusy() && this.opMode.opModeIsActive()) {
             robot.lift.liftDrive.setTargetPosition(0);
             robot.lift.liftDrive.setPower(0.5);
             telemetry.addData("beep","boop");
         }
     }
+
 
 
 

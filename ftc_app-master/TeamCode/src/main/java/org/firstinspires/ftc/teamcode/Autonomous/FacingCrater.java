@@ -10,12 +10,11 @@ import static org.firstinspires.ftc.teamcode.Hardware.Accumulator.accDrivePositi
 import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.DRIVE_SPEED;
 import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.TURN_SPEED;
 
-@Autonomous(name="FacingCrater V3", group="Pushbot")
+@Autonomous(name="FacingCrater V4", group="Pushbot")
 
 public class FacingCrater extends BaseAuto {
 
-    public Robot robot = new Robot();
-
+    Robot robot = new Robot();
 
     @Override
     public void runOpMode() {
@@ -33,9 +32,13 @@ public class FacingCrater extends BaseAuto {
 
         waitForStart();
 
-        land();
 
-        sample();
+        //land();
+
+        //sample();
+        robot.lift.liftDrive.setMode(RUN_TO_POSITION);
+        robot.lift.liftDrive.setPower(0.3);
+        robot.lift.liftDrive.setTargetPosition(robot.lift.liftExtended);
 
         //set up for first motion
         gyroTurn(TURN_SPEED, 0);
