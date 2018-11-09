@@ -10,6 +10,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Gyro;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.Hardware.Vision;
 
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_TO_POSITION;
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_USING_ENCODER;
 import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.CENTER_SAMPLE_DISTANCE;
 import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.DRIVE_SPEED;
 import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.SAMPLE_ANGLE;
@@ -260,6 +262,44 @@ public abstract class BaseAuto extends LinearOpMode{
             return;
         }
 
+    }
+
+    public void land(){
+
+        robot.lift.liftDrive.setMode(RUN_USING_ENCODER);
+        robot.lift.liftDrive.setPower(-0.75);
+
+        sleep(500);
+
+        robot.lift.liftLatch.setPosition(1.0);
+
+        sleep(500);
+
+        robot.lift.liftDrive.setMode(RUN_TO_POSITION);
+
+        robot.lift.liftDrive.setTargetPosition(3300);
+        robot.lift.liftDrive.setPower(0.5);
+
+        while(robot.lift.liftDrive.isBusy() && opModeIsActive()) {
+            robot.lift.liftDrive.setPower(0.5);
+            telemetry.addData("beep","boop");
+        }
+
+        robot.lift.hangLatch.setPosition(1.0);
+
+        sleep(1000);
+
+        //Sample
+        gyroTurn(TURN_SPEED, 0);
+        gyroDrive(DRIVE_SPEED, 4, 0);
+        robot.lift.liftDrive.setTargetPosition(0);
+        robot.lift.liftDrive.setPower(0.5);
+
+        while(robot.lift.liftDrive.isBusy() && opModeIsActive()) {
+            robot.lift.liftDrive.setTargetPosition(0);
+            robot.lift.liftDrive.setPower(0.5);
+            telemetry.addData("beep","boop");
+        }
     }
 
 
