@@ -22,14 +22,8 @@ public class EncoderTest extends OpMode {
     public void loop() {
 
         telemetry.addData("Acc Position:", robot.acc.accDrive.getCurrentPosition());
+        telemetry.addData("Lift Position:", robot.lift.liftDrive.getCurrentPosition());
         telemetry.update();
-
-        if(getRuntime() < 5){
-            robot.acc.setArmState(Accumulator.accDrivePosition.DEPLOYED);
-        }
-        else{
-            robot.acc.setArmState(Accumulator.accDrivePosition.RETRACTED);
-        }
 
     }
 }

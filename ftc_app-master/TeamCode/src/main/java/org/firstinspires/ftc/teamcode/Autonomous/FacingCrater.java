@@ -31,6 +31,8 @@ public class FacingCrater extends BaseAuto {
 
         waitForStart();
 
+        land();
+
         sample();
 
         //set up for first motion
