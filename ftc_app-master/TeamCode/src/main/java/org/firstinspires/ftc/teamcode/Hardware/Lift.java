@@ -57,6 +57,11 @@ public class Lift extends BaseHardware {
     }
 
     public void setup(){
+
+        liftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        liftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         liftLatch.setPosition(liftLatchClosed);
 
         dumpBucket.setPosition(dumpBucketRetracted);

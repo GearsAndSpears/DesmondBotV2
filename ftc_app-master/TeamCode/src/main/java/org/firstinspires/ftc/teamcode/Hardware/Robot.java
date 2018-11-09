@@ -29,7 +29,11 @@ public class Robot {
     }
 
     public void setup(){
+        driveTrain.setup();
+        acc.setup();
+        gyro.setup();
         lift.setup();
+        vision.setup();
     }
 
 }

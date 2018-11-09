@@ -44,6 +44,10 @@ public class Gyro extends BaseHardware{
 
     }
 
+    public void setup(){
+
+    }
+
     public double getGyroangle(){
 
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);

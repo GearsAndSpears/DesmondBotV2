@@ -53,7 +53,6 @@ public class Accumulator extends BaseHardware{
 
         accDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
-        accDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         accDrive.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
@@ -66,6 +65,12 @@ public class Accumulator extends BaseHardware{
 
         accDrive.setTargetPositionTolerance(1);
 
+    }
+
+    public void setup(){
+        accDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        accDrive.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
 
     public void intake(){

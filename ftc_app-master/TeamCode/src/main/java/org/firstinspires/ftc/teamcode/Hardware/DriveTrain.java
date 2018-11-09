@@ -56,6 +56,10 @@ public class DriveTrain extends BaseHardware{
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
+    public void setup(){
+
+    }
+
     public void manualDrive(Gamepad gamepad){
 
         double leftPower;

@@ -22,6 +22,8 @@ public class FacingCrater extends BaseAuto {
 
         robot.init(hardwareMap, telemetry);
 
+        robot.setup();
+
         robot.acc.setArmState(accDrivePosition.RETRACTED);
 
         robot.vision.detector.enable();

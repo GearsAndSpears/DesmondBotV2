@@ -69,4 +69,8 @@ public class Vision extends BaseHardware {
 
     }
 
+    public void setup(){
+        this.detector.enable();
+    }
+
 }
