@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Hardware.Accumulator;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
-@TeleOp(name="Lift Test", group="Tests")
+@TeleOp(name="Drive", group="Drive")
 public class LiftTest extends OpMode {
 
     Robot robot = new Robot();
