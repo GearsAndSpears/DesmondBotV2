@@ -16,7 +16,7 @@ import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.SAMPLE_ANGLE;
 import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.SIDE_SAMPLE_DISTANCE;
 import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.TURN_SPEED;
 
-public abstract class BasicAuto extends LinearOpMode{
+public abstract class BaseAuto extends LinearOpMode{
 
     Robot robot;
 

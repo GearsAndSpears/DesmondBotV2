@@ -12,7 +12,7 @@ import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.TURN_SPEED;
 
 @Autonomous(name="FacingCrater V3", group="Pushbot")
 
-public class FacingCrater extends  BasicAuto{
+public class FacingCrater extends BaseAuto {
 
     public Robot robot = new Robot();
 
