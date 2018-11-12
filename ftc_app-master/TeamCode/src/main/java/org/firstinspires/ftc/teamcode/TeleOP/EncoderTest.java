@@ -16,7 +16,6 @@ public class EncoderTest extends OpMode {
 
         robot.init(hardwareMap, telemetry);
 
-        robot.setup();
 
         robot.lift.liftLatch.setPosition(robot.lift.liftLatchOpened);
 

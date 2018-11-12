@@ -45,9 +45,9 @@ public class Auto extends BaseHardware{
  *                   0 = fwd. +ve is CCW from fwd. -ve is CW from forward.
      *
      */
-    void gyroDrive(double speed,
-                   double distance,
-                   double angle) {
+    public void gyroDrive(double speed,
+                          double distance,
+                          double angle) {
 
         int     newLeftTarget;
         int     newRightTarget;
@@ -134,7 +134,7 @@ public class Auto extends BaseHardware{
      *                   0 = fwd. +ve is CCW from fwd. -ve is CW from forward.
      *                   If a relative angle is required, add/subtract from current heading.
      */
-    void gyroTurn(double speed, double angle) {
+    public void gyroTurn(double speed, double angle) {
 
         // keep looping while we are still active, and not on heading.
         while (this.opMode.opModeIsActive() && !onHeading(speed, angle, robot.driveTrain.P_TURN_COEFF)) {
@@ -153,7 +153,7 @@ public class Auto extends BaseHardware{
      *                   If a relative angle is required, add/subtract from current heading.
      * @param holdTime   Length of time (in seconds) to hold the specified heading.
      */
-    void gyroHold(double speed, double angle, double holdTime) {
+    public void gyroHold(double speed, double angle, double holdTime) {
 
         ElapsedTime holdTimer = new ElapsedTime();
 
@@ -241,7 +241,7 @@ public class Auto extends BaseHardware{
         return Range.clip(error * PCoeff, -1, 1);
     }
 
-    void sample(){
+    public void sample(){
 
         gyroTurn(TURN_SPEED, SAMPLE_ANGLE);
 
