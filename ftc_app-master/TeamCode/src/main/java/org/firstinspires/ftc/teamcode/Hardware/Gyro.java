@@ -66,6 +66,7 @@ public class Gyro extends BaseHardware{
 
     }
 
+
     public String formatAngle(AngleUnit angleUnit, double angle) {
         return formatDegrees(AngleUnit.DEGREES.fromUnit(angleUnit, angle));
     }

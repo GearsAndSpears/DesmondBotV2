@@ -16,8 +16,8 @@ public class Lift extends BaseHardware {
     private double hangLatchClosed = 0.0;
     private double hangLatchOpened = 1.0;
 
-    public double liftLatchClosed = 1.0;
-    public double liftLatchOpened = 0.0;
+    public double liftLatchClosed = 0.0;
+    public double liftLatchOpened = 1.0;
 
     private double dumpBucketRetracted = 1.0;
     private double dumpBucketDump = 0.0;

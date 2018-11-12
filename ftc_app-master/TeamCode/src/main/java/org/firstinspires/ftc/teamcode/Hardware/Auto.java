@@ -22,17 +22,20 @@ public class Auto extends BaseHardware{
     HardwareMap hardwareMap;
     Telemetry telemetry;
     LinearOpMode opMode;
+
     Robot robot;
 
-    public void init(HardwareMap hardwareMap, Telemetry telemetry, LinearOpMode opmode){
-        this.initialize(hardwareMap, telemetry, opmode);
+    public void init(HardwareMap hardwareMap, Telemetry telemetry, LinearOpMode opmode, Robot robot){
+        this.initialize(hardwareMap, telemetry, opmode, robot);
     }
 
-    private void initialize(HardwareMap ahardwareMap, Telemetry atelemetry, LinearOpMode aopMode){
+    private void initialize(HardwareMap ahardwareMap, Telemetry atelemetry, LinearOpMode aopMode, Robot arobot){
         hardwareMap = ahardwareMap;
         telemetry = atelemetry;
         opMode = aopMode;
+        robot = arobot;
     }
+
 
     /**
      *  Method to drive on a fixed compass bearing (angle), based on encoder counts.

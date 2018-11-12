@@ -37,7 +37,7 @@ public class Robot {
         lift.setup();
         vision.setup();
 
-        auto.init(hardwareMap, telemetry, opmode);
+        auto.init(hardwareMap, telemetry, opmode, this);
     }
 
 }
