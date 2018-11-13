@@ -300,8 +300,6 @@ public class Auto extends BaseHardware{
 
         robot.lift.hangLatch.setPosition(1.0);
 
-        sleep(1000);
-
         //Sample
         gyroTurn(TURN_SPEED, 0);
         gyroDrive(DRIVE_SPEED, 4, 0);
