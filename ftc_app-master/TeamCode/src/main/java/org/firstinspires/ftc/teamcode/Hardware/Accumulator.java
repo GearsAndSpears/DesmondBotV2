@@ -71,6 +71,10 @@ public class Accumulator extends BaseHardware{
         accDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         accDrive.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+        accDrive.setPower(0.3);
+
+        setArmState(accDrivePosition.RETRACTED);
     }
 
     public void intake(){

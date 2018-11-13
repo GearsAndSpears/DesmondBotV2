@@ -23,7 +23,6 @@ public class FacingCrater extends LinearOpMode {
         robot.init(hardwareMap, telemetry);
 
         robot.setup(hardwareMap, telemetry, this);
-        robot.acc.setArmState(accDrivePosition.RETRACTED);
 
         robot.vision.detector.enable();
 
@@ -32,6 +31,7 @@ public class FacingCrater extends LinearOpMode {
 
         waitForStart();
 
+        robot.acc.setArmState(accDrivePosition.RETRACTED);
 
         //land();
         robot.auto.land();
@@ -54,7 +54,7 @@ public class FacingCrater extends LinearOpMode {
         robot.acc.output();
 
         //back into crater
-        robot.auto.gyroDrive(DRIVE_SPEED, -35, 135);
+        robot.auto.gyroDrive(DRIVE_SPEED, -35, 200);
 
 
     }
