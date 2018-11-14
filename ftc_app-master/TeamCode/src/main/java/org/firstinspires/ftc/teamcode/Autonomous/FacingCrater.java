@@ -55,7 +55,7 @@ public class FacingCrater extends LinearOpMode {
 
         sleep(1000);
 
-        //back into crater
+        //reverse into crater
         robot.auto.gyroDrive(0.7, -60, 135);
 
 
