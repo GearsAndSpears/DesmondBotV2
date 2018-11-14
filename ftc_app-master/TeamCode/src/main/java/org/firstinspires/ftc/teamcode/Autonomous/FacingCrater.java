@@ -11,7 +11,7 @@ import static org.firstinspires.ftc.teamcode.Hardware.Accumulator.accDrivePositi
 import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.DRIVE_SPEED;
 import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.TURN_SPEED;
 
-@Autonomous(name="FacingCrater V4", group="Pushbot")
+@Autonomous(name="FacingCrater", group="Pushbot")
 
 public class FacingCrater extends LinearOpMode {
 

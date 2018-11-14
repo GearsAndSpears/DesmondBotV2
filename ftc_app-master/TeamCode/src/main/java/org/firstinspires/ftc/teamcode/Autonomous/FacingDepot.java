@@ -9,7 +9,7 @@ import static org.firstinspires.ftc.teamcode.Hardware.Accumulator.accDrivePositi
 import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.DRIVE_SPEED;
 import static org.firstinspires.ftc.teamcode.Hardware.DriveTrain.TURN_SPEED;
 
-@Autonomous(name="FacingDepot V4", group="Pushbot")
+@Autonomous(name="FacingDepot", group="Pushbot")
 
 public class FacingDepot extends LinearOpMode {
 
