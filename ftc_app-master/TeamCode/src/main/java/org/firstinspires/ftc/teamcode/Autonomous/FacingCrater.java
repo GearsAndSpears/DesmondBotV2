@@ -40,7 +40,7 @@ public class FacingCrater extends LinearOpMode {
         //set up for first motion
         robot.auto.gyroTurn(TURN_SPEED, 0);
         robot.auto.gyroHold(TURN_SPEED, 0, .5);
-        robot.auto.gyroDrive(DRIVE_SPEED, 11, 0);
+        robot.auto.gyroDrive(DRIVE_SPEED, 9, 0);
 
         //turn left and drive towards wall
         robot.auto.gyroTurn(TURN_SPEED, 90);
@@ -53,8 +53,10 @@ public class FacingCrater extends LinearOpMode {
         robot.auto.gyroDrive(DRIVE_SPEED, 25, 135);
         robot.acc.output();
 
+        sleep(1000);
+
         //back into crater
-        robot.auto.gyroDrive(DRIVE_SPEED, -50, 135);
+        robot.auto.gyroDrive(DRIVE_SPEED, -60, 135);
 
 
     }

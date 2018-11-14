@@ -40,7 +40,7 @@ public class FacingDepot extends LinearOpMode {
 
         robot.auto.gyroTurn(TURN_SPEED, 0);
         robot.auto.gyroHold(TURN_SPEED, 0, .5);
-        robot.auto.gyroDrive(DRIVE_SPEED, 11, 0);
+        robot.auto.gyroDrive(DRIVE_SPEED, 9, 0);
 
         //turn left and drive towards wall
         robot.auto.gyroTurn(TURN_SPEED, 75);
