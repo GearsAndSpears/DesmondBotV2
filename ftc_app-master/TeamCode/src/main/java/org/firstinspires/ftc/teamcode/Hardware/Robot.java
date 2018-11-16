@@ -13,7 +13,6 @@ public class Robot {
     public Lift lift = new Lift();
     public Vision vision = new Vision();
     public Auto auto = new Auto();
-    public Voice voice = new Voice();
 
     public Robot(){
 
@@ -28,11 +27,11 @@ public class Robot {
         gyro.init(hardwareMap, telemetry);
         acc.init(hardwareMap, telemetry);
         lift.init(hardwareMap, telemetry);
-        vision.init(hardwareMap, telemetry);
-        voice.init(hardwareMap, telemetry);
     }
 
     public void setup(HardwareMap hardwareMap, Telemetry telemetry, LinearOpMode opmode){
+        vision.init(hardwareMap, telemetry);
+
         driveTrain.setup();
         acc.setup();
         gyro.setup();

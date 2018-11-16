@@ -56,7 +56,7 @@ public class Accumulator extends BaseHardware{
 
         accDrive.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        accDrive.setDirection(DcMotorEx.Direction.REVERSE);
+        accDrive.setDirection(DcMotorEx.Direction.FORWARD);
 
         accDrive.setPower(0);
 

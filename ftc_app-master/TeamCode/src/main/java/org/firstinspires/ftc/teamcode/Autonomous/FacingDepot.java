@@ -24,12 +24,13 @@ public class FacingDepot extends LinearOpMode {
 
         robot.vision.detector.enable();
 
+        robot.acc.setArmState(accDrivePosition.RETRACTED);
+
         telemetry.addData("Robot Ready", "");
         telemetry.update();
 
         waitForStart();
 
-        robot.acc.setArmState(accDrivePosition.RETRACTED);
 
         //land();
         robot.auto.land();

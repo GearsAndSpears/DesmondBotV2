@@ -300,7 +300,7 @@ public class Auto extends BaseHardware{
 
         robot.lift.hangLatch.setPosition(1.0);
 
-        robot.lift.dumpBucket.setPosition(robot.lift.dumpBucketDump);
+        robot.lift.dumpBucket.setPosition(0.5);
 
         sleep(500);
 
@@ -309,7 +309,6 @@ public class Auto extends BaseHardware{
         gyroDrive(DRIVE_SPEED, 4, 0);
         robot.lift.liftDrive.setTargetPosition(0);
         robot.lift.liftDrive.setPower(0.5);
-        robot.lift.dumpBucket.setPosition(robot.lift.dumpBucketDump);
 
         while(robot.lift.liftDrive.isBusy() && this.opMode.opModeIsActive()) {
             robot.lift.liftDrive.setTargetPosition(0);
