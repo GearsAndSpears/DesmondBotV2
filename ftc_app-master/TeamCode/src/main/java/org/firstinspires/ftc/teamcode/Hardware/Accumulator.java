@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -18,7 +19,7 @@ public class Accumulator extends BaseHardware{
     private double backAccOutput = -1;
 
     private final int deployedPosition = 400;
-    private final int retractedPosition = 0;
+    private int retractedPosition = 0;
     private final int collectingPosition = 450;
 
     private boolean upPressed = false;
@@ -32,6 +33,7 @@ public class Accumulator extends BaseHardware{
 
     public DcMotorEx accDrive;
     public CRServo frontAcc, backAcc;
+    public DigitalChannel accLimit;
 
     public enum accDrivePosition{
         RETRACTED,
@@ -50,6 +52,8 @@ public class Accumulator extends BaseHardware{
 
         frontAcc = hardwareMap.crservo.get("frontAcc");
         backAcc = hardwareMap.crservo.get("backAcc");
+
+        accLimit = hardwareMap.digitalChannel.get("accLimit");
 
         accDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
@@ -98,6 +102,10 @@ public class Accumulator extends BaseHardware{
             case RETRACTED:
                 accDrive.setTargetPosition(retractedPosition);
                 this.stop();
+                if(accLimit.getState()){
+                    accDrive.setPower(0);
+                    retractedPosition = accDrive.getCurrentPosition();
+                }
                 break;
             case DEPLOYED:
                 accDrive.setTargetPosition(deployedPosition);
@@ -120,6 +128,7 @@ public class Accumulator extends BaseHardware{
             if(acc == accDrivePosition.RETRACTED){
                 acc = accDrivePosition.DEPLOYED;
             }
+            
             else if(acc == accDrivePosition.DEPLOYED){
                 acc = accDrivePosition.COLLECTING;
             }
