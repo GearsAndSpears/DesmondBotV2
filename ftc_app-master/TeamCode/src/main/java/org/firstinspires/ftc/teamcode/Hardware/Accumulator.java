@@ -55,6 +55,8 @@ public class Accumulator extends BaseHardware{
 
         accLimit = hardwareMap.digitalChannel.get("accLimit");
 
+        accLimit.setMode(DigitalChannel.Mode.INPUT);
+
         accDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
 
@@ -102,7 +104,7 @@ public class Accumulator extends BaseHardware{
             case RETRACTED:
                 accDrive.setTargetPosition(retractedPosition);
                 this.stop();
-                if(accLimit.getState()){
+                if(!accLimit.getState()){
                     accDrive.setPower(0);
                     retractedPosition = accDrive.getCurrentPosition();
                 }
@@ -121,7 +123,12 @@ public class Accumulator extends BaseHardware{
     public void manualControl(Gamepad gamepad){
 
         if(gamepad.dpad_up && !upPressed){
-            acc = accDrivePosition.RETRACTED;
+            if(acc == accDrivePosition.COLLECTING){
+                acc = accDrivePosition.DEPLOYED;
+            }
+            else{
+                acc = accDrivePosition.RETRACTED;
+            }
             upPressed = true;
         }
         else if(gamepad.dpad_down && !downPressed){
