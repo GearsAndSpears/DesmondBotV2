@@ -23,6 +23,8 @@ public class EncoderTest extends LinearOpMode {
 
         waitForStart();
 
+        robot.acc.accDrive.setPower(0);
+
         while (opModeIsActive()) {
             telemetry.addData("Acc Position:", robot.acc.accDrive.getCurrentPosition());
             telemetry.addData("Lift Position:", robot.lift.liftDrive.getCurrentPosition());
