@@ -18,9 +18,9 @@ public class Accumulator extends BaseHardware{
     private double frontAccOutput = -1;
     private double backAccOutput = -1;
 
-    private final int deployedPosition = 400;
+    private final int deployedPosition = 300;
     private int retractedPosition = 0;
-    private final int collectingPosition = 450;
+    private final int collectingPosition = 480;
 
     private boolean upPressed = false;
     private boolean downPressed = false;
