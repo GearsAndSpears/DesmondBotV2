@@ -45,18 +45,18 @@ public class FacingCrater extends LinearOpMode {
         //turn left and drive towards wall
         robot.auto.gyroTurn(TURN_SPEED, 90);
         robot.auto.gyroHold(TURN_SPEED, 90, .5);
-        robot.auto.gyroDrive(DRIVE_SPEED, 47, 90);
+        robot.auto.gyroDrive(0.7, 47, 90);
 
         //face depot and claim
         robot.auto.gyroTurn(TURN_SPEED, 135);
         robot.auto.gyroHold(TURN_SPEED, 135, .5);
-        robot.auto.gyroDrive(DRIVE_SPEED, 25, 135);
+        robot.auto.gyroDrive(0.7, 25, 135);
         robot.acc.output();
 
         sleep(1000);
 
-        //back into crater
-        robot.auto.gyroDrive(DRIVE_SPEED, -60, 135);
+        //reverse into crater
+        robot.auto.gyroDrive(0.7, -60, 135);
 
 
     }
