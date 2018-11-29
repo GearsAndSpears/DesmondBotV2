@@ -309,12 +309,6 @@ public class Auto extends BaseHardware{
         gyroDrive(DRIVE_SPEED, 4, 0);
         robot.lift.liftDrive.setTargetPosition(0);
         robot.lift.liftDrive.setPower(0.5);
-
-        while(robot.lift.liftDrive.isBusy() && this.opMode.opModeIsActive()) {
-            robot.lift.liftDrive.setTargetPosition(0);
-            robot.lift.liftDrive.setPower(0.5);
-            telemetry.addData("beep","boop");
-        }
     }
 
 

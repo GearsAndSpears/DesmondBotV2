@@ -46,13 +46,15 @@ public class FacingDepot extends LinearOpMode {
         //turn left and drive towards wall
         robot.auto.gyroTurn(TURN_SPEED, -105);
         robot.auto.gyroHold(TURN_SPEED, -105, .5);
-        robot.auto.gyroDrive(DRIVE_SPEED, -40, -105);
+        robot.auto.gyroDrive(DRIVE_SPEED, -43, -105);
 
         //turn towards depot and claim
         robot.auto.gyroTurn(TURN_SPEED, -45);
         robot.auto.gyroHold(TURN_SPEED, -45, .5);
         robot.auto.gyroDrive(DRIVE_SPEED, 35, -45);
         robot.acc.output();
+
+        sleep(1000);
         //back into crater
         robot.auto.gyroDrive(DRIVE_SPEED, -60, -45);
 
