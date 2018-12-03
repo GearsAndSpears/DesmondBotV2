@@ -283,6 +283,7 @@ public class Auto extends BaseHardware{
         robot.lift.liftDrive.setMode(RUN_USING_ENCODER);
         robot.lift.liftDrive.setPower(-0.75);
 
+
         sleep(500);
 
         robot.lift.liftLatch.setPosition(1.0);
@@ -304,9 +305,11 @@ public class Auto extends BaseHardware{
 
         sleep(500);
 
-        //Sample
+        //Drive forward
         gyroHold(TURN_SPEED,0,0.5);
         gyroDrive(DRIVE_SPEED, 4, 0);
+
+        //Lower arm
         robot.lift.liftDrive.setTargetPosition(0);
         robot.lift.liftDrive.setPower(0.5);
     }

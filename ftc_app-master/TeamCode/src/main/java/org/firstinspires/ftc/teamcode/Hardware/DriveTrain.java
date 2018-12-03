@@ -32,15 +32,7 @@ public class   DriveTrain extends BaseHardware{
 
     Telemetry telemetry;
 
-    public DriveTrain(){
-
-    }
-
     public DcMotor leftDrive, rightDrive;
-
-    public void init(HardwareMap hardwareMap, Telemetry telemetry){
-        this.initialize(hardwareMap, telemetry);
-    }
 
     private void initialize(HardwareMap hardwareMap, Telemetry telemetry){
         leftDrive = hardwareMap.dcMotor.get("left_drive");
@@ -72,12 +64,10 @@ public class   DriveTrain extends BaseHardware{
 
 
         if(!gamepad.right_bumper) {
-            leftDrive.setPower(leftPower);
-            rightDrive.setPower(rightPower);
+            setPower(leftPower, rightPower);
         }
         else{
-            leftDrive.setPower(leftPower/4);
-            rightDrive.setPower(rightPower/4);
+            setPower(leftPower/4, rightPower/4);
         }
 
     }
