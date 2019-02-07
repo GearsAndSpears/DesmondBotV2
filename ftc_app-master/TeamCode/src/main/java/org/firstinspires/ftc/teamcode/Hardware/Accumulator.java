@@ -31,9 +31,8 @@ public class Accumulator extends BaseHardware{
 
     }
 
-    public DcMotorEx accDrive;
+    public DcMotorEx accDrive, accSlide;
     public CRServo frontAcc, backAcc;
-    public DigitalChannel accLimit;
 
     public enum accDrivePosition{
         RETRACTED,
@@ -45,28 +44,29 @@ public class Accumulator extends BaseHardware{
 
 
     private void initialize(HardwareMap hardwareMap, Telemetry telemetry){
-        accDrive = (DcMotorEx)hardwareMap.dcMotor.get("accDrive");
+        accDrive = (DcMotorEx)hardwareMap.dcMotor.get("acc_drive");
+        accSlide = (DcMotorEx)hardwareMap.dcMotor.get("acc_slide");
 
-        frontAcc = hardwareMap.crservo.get("frontAcc");
-        backAcc = hardwareMap.crservo.get("backAcc");
-
-        accLimit = hardwareMap.digitalChannel.get("accLimit");
-
-        accLimit.setMode(DigitalChannel.Mode.INPUT);
+        frontAcc = hardwareMap.crservo.get("front_acc");
+        backAcc = hardwareMap.crservo.get("back_acc");
 
         accDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
 
         accDrive.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        accSlide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         accDrive.setDirection(DcMotorEx.Direction.FORWARD);
+        accSlide.setDirection(DcMotorEx.Direction.FORWARD);
 
         accDrive.setPower(0);
+        accSlide.setPower(0);
 
         frontAcc.setDirection(CRServo.Direction.REVERSE);
         backAcc.setDirection(CRServo.Direction.FORWARD);
 
         accDrive.setTargetPositionTolerance(1);
+        accSlide.setTargetPositionTolerance(1);
 
     }
 
@@ -101,10 +101,6 @@ public class Accumulator extends BaseHardware{
             case RETRACTED:
                 accDrive.setTargetPosition(retractedPosition);
                 this.stop();
-                if(!accLimit.getState()){
-                    accDrive.setPower(0);
-                    retractedPosition = accDrive.getCurrentPosition();
-                }
                 break;
             case DEPLOYED:
                 accDrive.setTargetPosition(deployedPosition);
