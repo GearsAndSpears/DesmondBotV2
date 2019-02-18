@@ -94,6 +94,9 @@ public class SmartDrive extends LinearOpMode {
                     break;
 
                 case STATE_DUMPING:
+                    if(gamepad2.b){
+                        robot.lift.dumpBucket.setPosition(robot.lift.dumpBucketDump);
+                    }
 
 
             }

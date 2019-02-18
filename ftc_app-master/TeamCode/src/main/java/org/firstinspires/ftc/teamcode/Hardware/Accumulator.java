@@ -10,6 +10,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import static java.lang.Math.abs;
+
 public class Accumulator extends BaseHardware{
 
     private double frontAccIntake = 1;
@@ -19,9 +21,9 @@ public class Accumulator extends BaseHardware{
     private double backAccOutput = -1;
 
     public final int deployedPosition =1300;
-    public int retractedPosition = 12;
-    public final int collectingPosition = 1400;
-    public final int storingPosition = 0;
+    public int retractedPosition = 540;
+    public final int collectingPosition = 1470;
+    public final int storingPosition = 460;
 
     public final int slidePartiallyRetracted = 100;
     public final int slideTotallyRetracted = 0;
@@ -78,10 +80,12 @@ public class Accumulator extends BaseHardware{
 
     public void setup(){
         accDrive.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        accSlide.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         accDrive.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        accSlide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        accDrive.setPower(1);
+        accDrive.setPower(0.3);
 
         setArmState(accDrivePosition.RETRACTED);
     }
@@ -102,7 +106,7 @@ public class Accumulator extends BaseHardware{
     }
 
     public void setArmState(accDrivePosition adp){
-        accDrive.setPower(1);
+        accDrive.setPower(0.4);
         switch (adp){
             case RETRACTED:
                 accDrive.setTargetPosition(retractedPosition);
@@ -151,8 +155,13 @@ public class Accumulator extends BaseHardware{
 
         this.setArmState(acc);
 
-        this.accSlide.setPower(gamepad.left_stick_y);
-
+        if(gamepad.left_stick_y > 0){
+            this.accSlide.setTargetPosition(slideTotallyExtended);
+        }
+        else if(gamepad.left_stick_y < 0){
+            this.accSlide.setTargetPosition(slidePartiallyRetracted);
+        }
+        this.accSlide.setPower(abs(gamepad.left_stick_y));
     }
 
 }
