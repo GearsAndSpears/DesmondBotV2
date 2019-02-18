@@ -12,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class Lift extends BaseHardware {
 
     public int liftExtended = 3990;
+    public int liftRetracted = 10;
 
     private double hangLatchClosed = 0.0;
     private double hangLatchOpened = 1.0;
@@ -21,6 +22,7 @@ public class Lift extends BaseHardware {
 
     public double dumpBucketRetracted = 1.0;
     public double dumpBucketDump = 0.0;
+    public double dumpBucketCentered = 0.5;
 
     private boolean aPressed = false;
     private boolean bPressed = false;

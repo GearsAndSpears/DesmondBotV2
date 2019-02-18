@@ -18,9 +18,15 @@ public class Accumulator extends BaseHardware{
     private double frontAccOutput = -1;
     private double backAccOutput = -1;
 
-    private final int deployedPosition =1300;
-    private int retractedPosition = 0;
-    private final int collectingPosition = 1400;
+    public final int deployedPosition =1300;
+    public int retractedPosition = 12;
+    public final int collectingPosition = 1400;
+    public final int storingPosition = 0;
+
+    public final int slidePartiallyRetracted = 100;
+    public final int slideTotallyRetracted = 0;
+    public final int slideTotallyExtended = 200;
+    public final double slidePower = .3;
 
     private boolean upPressed = false;
     private boolean downPressed = false;
@@ -31,6 +37,7 @@ public class Accumulator extends BaseHardware{
     public CRServo frontAcc, backAcc;
 
     public enum accDrivePosition{
+        STORING,
         RETRACTED,
         DEPLOYED,
         COLLECTING
