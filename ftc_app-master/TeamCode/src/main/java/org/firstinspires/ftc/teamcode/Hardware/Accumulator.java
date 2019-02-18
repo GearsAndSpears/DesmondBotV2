@@ -27,7 +27,7 @@ public class Accumulator extends BaseHardware{
 
     public final int slidePartiallyRetracted = 100;
     public final int slideTotallyRetracted = 0;
-    public final int slideTotallyExtended = 200;
+    public final int slideTotallyExtended = 1850;
     public final double slidePower = .3;
 
     private boolean upPressed = false;
@@ -51,7 +51,7 @@ public class Accumulator extends BaseHardware{
         this.initialize(hardwareMap, telemetry);
     }
 
-    private void initialize(HardwareMap hardwareMap, Telemetry telemetry){
+    private void initialize(HardwareMap hardwareMap, Telemetry telemetry1){
         accDrive = (DcMotorEx)hardwareMap.dcMotor.get("acc_drive");
         accSlide = (DcMotorEx)hardwareMap.dcMotor.get("acc_slide");
 
@@ -62,7 +62,7 @@ public class Accumulator extends BaseHardware{
         accSlide.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         accDrive.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        accSlide.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        accSlide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         accDrive.setDirection(DcMotorEx.Direction.REVERSE);
         accSlide.setDirection(DcMotorEx.Direction.FORWARD);
@@ -75,6 +75,8 @@ public class Accumulator extends BaseHardware{
 
         accDrive.setTargetPositionTolerance(1);
         accSlide.setTargetPositionTolerance(1);
+
+        telemetry = telemetry1;
 
     }
 
@@ -156,12 +158,16 @@ public class Accumulator extends BaseHardware{
         this.setArmState(acc);
 
         if(gamepad.left_stick_y > 0){
-            this.accSlide.setTargetPosition(slideTotallyExtended);
+            this.accSlide.setTargetPosition(slideTotallyRetracted);
         }
         else if(gamepad.left_stick_y < 0){
-            this.accSlide.setTargetPosition(slidePartiallyRetracted);
+            this.accSlide.setTargetPosition(slideTotallyExtended);
         }
         this.accSlide.setPower(abs(gamepad.left_stick_y));
+
+        telemetry.addData("Target Pos", this.accSlide.getTargetPosition());
+        telemetry.addData("Power", this.accSlide.getPower());
+        telemetry.addData("CurrentPos", this.accSlide.getCurrentPosition());
     }
 
 }

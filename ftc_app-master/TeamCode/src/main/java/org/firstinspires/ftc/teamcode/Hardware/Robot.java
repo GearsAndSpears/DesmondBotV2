@@ -25,6 +25,8 @@ public class Robot {
     private void initialize(HardwareMap hardwareMap, Telemetry telemetry){
         driveTrain.init(hardwareMap, telemetry);
         gyro.init(hardwareMap, telemetry);
+        acc.init(hardwareMap, telemetry);
+        lift.init(hardwareMap, telemetry);
     }
 
     public void setup(HardwareMap hardwareMap, Telemetry telemetry, LinearOpMode opmode){
