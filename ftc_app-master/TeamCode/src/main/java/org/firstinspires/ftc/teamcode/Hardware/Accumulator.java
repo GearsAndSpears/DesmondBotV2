@@ -18,18 +18,14 @@ public class Accumulator extends BaseHardware{
     private double frontAccOutput = -1;
     private double backAccOutput = -1;
 
-    private final int deployedPosition = 300;
+    private final int deployedPosition =1300;
     private int retractedPosition = 0;
-    private final int collectingPosition = 480;
+    private final int collectingPosition = 1400;
 
     private boolean upPressed = false;
     private boolean downPressed = false;
 
     Telemetry telemetry;
-
-    public Accumulator(){
-
-    }
 
     public DcMotorEx accDrive, accSlide;
     public CRServo frontAcc, backAcc;
@@ -42,6 +38,9 @@ public class Accumulator extends BaseHardware{
 
     accDrivePosition acc = accDrivePosition.RETRACTED;
 
+    public void init(HardwareMap hardwareMap, Telemetry telemetry){
+        this.initialize(hardwareMap, telemetry);
+    }
 
     private void initialize(HardwareMap hardwareMap, Telemetry telemetry){
         accDrive = (DcMotorEx)hardwareMap.dcMotor.get("acc_drive");
@@ -51,12 +50,12 @@ public class Accumulator extends BaseHardware{
         backAcc = hardwareMap.crservo.get("back_acc");
 
         accDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-
+        accSlide.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         accDrive.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        accSlide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        accSlide.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-        accDrive.setDirection(DcMotorEx.Direction.FORWARD);
+        accDrive.setDirection(DcMotorEx.Direction.REVERSE);
         accSlide.setDirection(DcMotorEx.Direction.FORWARD);
 
         accDrive.setPower(0);
@@ -71,11 +70,11 @@ public class Accumulator extends BaseHardware{
     }
 
     public void setup(){
-        accDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        accDrive.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         accDrive.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        accDrive.setPower(0.3);
+        accDrive.setPower(1);
 
         setArmState(accDrivePosition.RETRACTED);
     }
@@ -96,7 +95,7 @@ public class Accumulator extends BaseHardware{
     }
 
     public void setArmState(accDrivePosition adp){
-        accDrive.setPower(0.3);
+        accDrive.setPower(1);
         switch (adp){
             case RETRACTED:
                 accDrive.setTargetPosition(retractedPosition);
@@ -144,6 +143,8 @@ public class Accumulator extends BaseHardware{
         }
 
         this.setArmState(acc);
+
+        this.accSlide.setPower(gamepad.left_stick_y);
 
     }
 

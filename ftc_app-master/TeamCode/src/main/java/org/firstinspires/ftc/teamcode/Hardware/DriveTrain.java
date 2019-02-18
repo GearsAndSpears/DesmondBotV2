@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
@@ -33,6 +32,10 @@ public class   DriveTrain extends BaseHardware{
     Telemetry telemetry;
 
     public DcMotor leftDrive, rightDrive;
+
+    public void init(HardwareMap hardwareMap, Telemetry telemetry){
+        this.initialize(hardwareMap, telemetry);
+    }
 
     private void initialize(HardwareMap hardwareMap, Telemetry telemetry){
         leftDrive = hardwareMap.dcMotor.get("left_drive");
